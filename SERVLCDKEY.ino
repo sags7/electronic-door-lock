@@ -3,31 +3,53 @@
 #include "servoControl.h";
 #include "keypad.h";
 #include <EEPROM.h>
-String lastReleased = "";
+
 
 bool doonce = true;
+String savedPassword = "";
+String inputPassword = "";
 
-void passwordScreen() {
-  clearDisplay();
-  lcdPrint("Enter Password: ");
-  secondLine();
-}
-
-void star(String s = "") {
+bool star(String s = "") {
   if (s == "*") {
-    clearDisplay();
-    secondLine();
-    lcdPrint(String(EEPROM.read(0)));
-    lcdPrint(String(EEPROM.read(1)));
-    lcdPrint(String(EEPROM.read(2)));
-    lcdPrint(String(EEPROM.read(3)));
-
-    lastBtn = "";
-  }
-}
-void hashTag(String s = "") {
-  if (s == "#") {
     backspace();
+    inputPassword.remove(inputPassword.length() - 1);
+    return true;
+  }
+  return false;
+}
+bool hashtag(String s = "") {
+  if (s == "#") {
+    if (savedPassword == inputPassword) {
+      clearDisplay();
+      lcdPrint("Access Granted!!");
+      secondLine();
+      inputPassword = "";
+    }
+    else {
+      clearDisplay();
+      lcdPrint("Access Denied!!");
+      secondLine();
+      inputPassword = "";
+    }
+    return true;
+  }
+  return false;
+}
+
+
+bool shown = false;
+void passwordScreen() {
+  if (shown == false) {
+    clearDisplay();
+    lcdPrint("Enter Password: ");
+    secondLine();
+    shown = true;
+  }
+  if (btnReleased() != "") {
+    if (!star(lastBtn) && !hashtag(lastBtn)) {
+      lcdPrint("*");
+      inputPassword += lastBtn;
+    }
     lastBtn = "";
   }
 }
@@ -39,28 +61,24 @@ void setPassword () {
   EEPROM.write(3, 4);
 }
 
-String digitOne;
-String digitTwo;
-String digitThree;
-String digitFour;
-int currentDigit = 0;
-
-void loop()
-{
+void loop() {
   if (doonce == true)
   {
     bootUp();
-    passwordScreen();
-    doonce = false;
+    savedPassword += EEPROM.read(0);
+    savedPassword += EEPROM.read(1);
+    savedPassword += EEPROM.read(2);
+    savedPassword += EEPROM.read(3);
     //setPassword();
+    doonce = false;
   }
-
-  if (btnReleased() != "") {
-    lastReleased = lastBtn;
-    star(lastBtn);
-    hashTag(lastBtn);
-    lcdPrint(lastBtn);
-    lastBtn = "";
-  }
-  servoControl(lastReleased.toInt() * 20);
+  passwordScreen();
 }
+
+
+/*
+     if (btnReleased() != "") {
+       lcdPrint(lastBtn);
+       lastBtn = "";
+     }
+*/

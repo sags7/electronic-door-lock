@@ -1249,6 +1249,23 @@ void lcdShowChar(char letter)
       digitalWrite(DB4, 1);
       enable();
       break;
+
+    case '!':
+      enableCursor();
+      digitalWrite(REG, HIGH);
+      delay(pulseWidth);
+
+      digitalWrite(DB7, 0);
+      digitalWrite(DB6, 0);
+      digitalWrite(DB5, 1);
+      digitalWrite(DB4, 0);
+      enable();
+      digitalWrite(DB7, 0);
+      digitalWrite(DB6, 0);
+      digitalWrite(DB5, 0);
+      digitalWrite(DB4, 1);
+      enable();
+      break;
   }
 }
 
