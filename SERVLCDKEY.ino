@@ -21,8 +21,14 @@ void star(String s = "") {
     lcdPrint(String(EEPROM.read(1)));
     lcdPrint(String(EEPROM.read(2)));
     lcdPrint(String(EEPROM.read(3)));
-    
-    lastReleased = "";
+
+    lastBtn = "";
+  }
+}
+void hashTag(String s = "") {
+  if (s == "#") {
+    backspace();
+    lastBtn = "";
   }
 }
 
@@ -51,9 +57,10 @@ void loop()
 
   if (btnReleased() != "") {
     lastReleased = lastBtn;
+    star(lastBtn);
+    hashTag(lastBtn);
     lcdPrint(lastBtn);
     lastBtn = "";
   }
-  star(lastReleased);
-  servoControl(lastReleased.toInt() * 20, 5);
+  servoControl(lastReleased.toInt() * 20);
 }

@@ -24,9 +24,6 @@ String btnReleased() {
     lastBtn = checkKeypad();
     btnSent = false;
   }
-  //  else if (lastBtn == checkKeypad()) {
-  //  return "";
-  // }
   else if (lastBtn != checkKeypad() && btnSent == false) {
     btnSent = true;
     return lastBtn;

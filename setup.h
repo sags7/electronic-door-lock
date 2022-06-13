@@ -29,8 +29,10 @@ const String keys[rowsLength][colsLength] = {
 //--------------------------------
 const char servoData = A5;
 //--------------------------------
-short cursorPosition = 1;
+
 const char lcdOnPin = A2;
+short cursorPosition = 1;
+
 //--------------------------------
 void setup()
 {
@@ -52,6 +54,7 @@ void setup()
   pinMode(col2, INPUT);
   pinMode(col3, INPUT);
 
+  pinMode(servoData, OUTPUT);
   pinMode(lcdOnPin, OUTPUT);
   Serial.begin(57600);
 }

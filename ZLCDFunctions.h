@@ -1,4 +1,5 @@
 
+
 void enable()
 {
   digitalWrite(ENE, HIGH);
@@ -1251,6 +1252,7 @@ void lcdShowChar(char letter)
   }
 }
 
+
 void lcdPrint(String sentence, short lineLength = 16)
 {
   delay(pulseWidth);
@@ -1285,4 +1287,41 @@ void bootUp () {
   configureScreen();
   enableCursor();
   clearDisplay();
+}
+
+void backspace() {
+  digitalWrite(REG, LOW);
+  delay(pulseWidth);
+
+  digitalWrite(DB7, 0);
+  digitalWrite(DB6, 0);
+  digitalWrite(DB5, 0);
+  digitalWrite(DB4, 1);
+  enable();
+
+  digitalWrite(DB7, 0);
+  digitalWrite(DB6, 0);
+  digitalWrite(DB5, 0);
+  digitalWrite(DB4, 0);
+  enable();
+
+  cursorPosition--;
+  lcdShowChar(' ');
+  
+  digitalWrite(REG, LOW);
+  delay(pulseWidth);
+
+  digitalWrite(DB7, 0);
+  digitalWrite(DB6, 0);
+  digitalWrite(DB5, 0);
+  digitalWrite(DB4, 1);
+  enable();
+
+  digitalWrite(DB7, 0);
+  digitalWrite(DB6, 0);
+  digitalWrite(DB5, 0);
+  digitalWrite(DB4, 0);
+  enable();
+
+  cursorPosition--;
 }
