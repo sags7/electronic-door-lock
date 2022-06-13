@@ -1290,38 +1290,60 @@ void bootUp () {
 }
 
 void backspace() {
-  digitalWrite(REG, LOW);
-  delay(pulseWidth);
+  if (cursorPosition > 1) {
+    digitalWrite(REG, LOW);
+    delay(pulseWidth);
 
-  digitalWrite(DB7, 0);
-  digitalWrite(DB6, 0);
-  digitalWrite(DB5, 0);
-  digitalWrite(DB4, 1);
-  enable();
+    digitalWrite(DB7, 0);
+    digitalWrite(DB6, 0);
+    digitalWrite(DB5, 0);
+    digitalWrite(DB4, 1);
+    enable();
 
-  digitalWrite(DB7, 0);
-  digitalWrite(DB6, 0);
-  digitalWrite(DB5, 0);
-  digitalWrite(DB4, 0);
-  enable();
+    digitalWrite(DB7, 0);
+    digitalWrite(DB6, 0);
+    digitalWrite(DB5, 0);
+    digitalWrite(DB4, 0);
+    enable();
 
-  cursorPosition--;
-  lcdShowChar(' ');
-  
-  digitalWrite(REG, LOW);
-  delay(pulseWidth);
+    cursorPosition--;
+    lcdPrint(" ");
 
-  digitalWrite(DB7, 0);
-  digitalWrite(DB6, 0);
-  digitalWrite(DB5, 0);
-  digitalWrite(DB4, 1);
-  enable();
+    digitalWrite(REG, LOW);
+    delay(pulseWidth);
 
-  digitalWrite(DB7, 0);
-  digitalWrite(DB6, 0);
-  digitalWrite(DB5, 0);
-  digitalWrite(DB4, 0);
-  enable();
+    digitalWrite(DB7, 0);
+    digitalWrite(DB6, 0);
+    digitalWrite(DB5, 0);
+    digitalWrite(DB4, 1);
+    enable();
 
-  cursorPosition--;
+    digitalWrite(DB7, 0);
+    digitalWrite(DB6, 0);
+    digitalWrite(DB5, 0);
+    digitalWrite(DB4, 0);
+    enable();
+
+    cursorPosition--;
+  }
+  else if (cursorPosition == 1) {
+    lcdPrint(" ");
+
+    digitalWrite(REG, LOW);
+    delay(pulseWidth);
+
+    digitalWrite(DB7, 0);
+    digitalWrite(DB6, 0);
+    digitalWrite(DB5, 0);
+    digitalWrite(DB4, 1);
+    enable();
+
+    digitalWrite(DB7, 0);
+    digitalWrite(DB6, 0);
+    digitalWrite(DB5, 0);
+    digitalWrite(DB4, 0);
+    enable();
+
+    cursorPosition--;
+  }
 }
