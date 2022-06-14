@@ -1,10 +1,18 @@
+const char DB0; // Set if using 8bit bus 
+const char DB1; // Set if using 8bit bus 
+const char DB2; // Set if using 8bit bus 
+const char DB3; // Set if using 8bit bus 
+
 const char DB4 = 8;
 const char DB5 = 9;
 const char DB6 = 10;
 const char DB7 = 11;
 const char REG = 12;
 const char ENE = 13;
+
 const short pulseWidth = 5;
+const char lcdOnPin = A2;
+short cursorPosition = 1;
 //--------------------------------
 const char row1 = A0;
 const char row2 = 2;
@@ -28,11 +36,6 @@ const String keys[rowsLength][colsLength] = {
 };
 //--------------------------------
 const char servoData = A5;
-//--------------------------------
-
-const char lcdOnPin = A2;
-short cursorPosition = 1;
-
 //--------------------------------
 void setup()
 {

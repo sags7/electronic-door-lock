@@ -7,6 +7,39 @@ void enable()
   digitalWrite(ENE, LOW);
 }
 
+void sendBus (int b7, int b6, int b5, int b4, int b3, int b2, int b1, int b0, bool DB4bit = true, int rs = 1) {
+  if (DB4bit == true) {
+    digitalWrite(REG, rs);
+    delay(pulseWidth);
+
+    digitalWrite(DB7, b7);
+    digitalWrite(DB6, b6);
+    digitalWrite(DB5, b5);
+    digitalWrite(DB4, b4);
+    enable();
+
+    digitalWrite(DB7, b3);
+    digitalWrite(DB6, b2);
+    digitalWrite(DB5, b1);
+    digitalWrite(DB4, b0);
+    enable();
+  }
+  else {
+    digitalWrite(REG, rs);
+    delay(pulseWidth);
+
+    digitalWrite(DB7, b7);
+    digitalWrite(DB6, b6);
+    digitalWrite(DB5, b5);
+    digitalWrite(DB4, b4);
+    digitalWrite(DB3, b3);
+    digitalWrite(DB2, b2);
+    digitalWrite(DB1, b1);
+    digitalWrite(DB0, b0);
+    enable();
+    
+  }
+}
 void configureScreen()
 {
   digitalWrite(REG, LOW);
@@ -18,92 +51,29 @@ void configureScreen()
   digitalWrite(DB4, LOW);
   enable();
 
-  digitalWrite(DB7, LOW);
-  digitalWrite(DB6, LOW);
-  digitalWrite(DB5, HIGH);
-  digitalWrite(DB4, LOW);
-  enable();
-
-  digitalWrite(DB7, HIGH);
-  digitalWrite(DB6, HIGH);
-  digitalWrite(DB5, LOW);
-  digitalWrite(DB4, LOW);
-  enable();
+  sendBus(0, 0, 1, 0, 1, 1, 0, 0, true, 0);
 }
 
 void clearDisplay()
 {
-  delay(pulseWidth);
   cursorPosition = 1;
-  digitalWrite(REG, LOW);
-  delay(pulseWidth);
-
-  digitalWrite(DB7, LOW);
-  digitalWrite(DB6, LOW);
-  digitalWrite(DB5, LOW);
-  digitalWrite(DB4, LOW);
-  enable();
-
-  digitalWrite(DB7, LOW);
-  digitalWrite(DB6, LOW);
-  digitalWrite(DB5, LOW);
-  digitalWrite(DB4, HIGH);
-  enable();
+  sendBus(0, 0, 0, 0, 0, 0, 0, 1, true, 0);
 }
 
 void enableCursor()
 {
-  digitalWrite(REG, LOW);
-  delay(pulseWidth);
-
-  digitalWrite(DB7, LOW);
-  digitalWrite(DB6, LOW);
-  digitalWrite(DB5, LOW);
-  digitalWrite(DB4, LOW);
-  enable();
-
-  digitalWrite(DB7, HIGH);
-  digitalWrite(DB6, HIGH);
-  digitalWrite(DB5, HIGH);
-  digitalWrite(DB4, HIGH);
-  enable();
+  sendBus(0, 0, 0, 0, 1, 1, 1, 1, true, 0);
 }
 
 void disableCursor()
 {
-  digitalWrite(REG, LOW);
-  delay(pulseWidth);
-
-  digitalWrite(DB7, LOW);
-  digitalWrite(DB6, LOW);
-  digitalWrite(DB5, LOW);
-  digitalWrite(DB4, LOW);
-  enable();
-
-  digitalWrite(DB7, HIGH);
-  digitalWrite(DB6, HIGH);
-  digitalWrite(DB5, LOW);
-  digitalWrite(DB4, LOW);
-  enable();
+  sendBus(0, 0, 0, 0, 1, 1, 0, 0, true, 0);
 }
 
 void secondLine()
 {
+  sendBus(1, 1, 0, 0, 0, 0, 0, 0, true, 0);
   cursorPosition = 1;
-  digitalWrite(REG, LOW);
-  delay(pulseWidth);
-
-  digitalWrite(DB7, 1);
-  digitalWrite(DB6, 1);
-  digitalWrite(DB5, 0);
-  digitalWrite(DB4, 0);
-  enable();
-
-  digitalWrite(DB7, 0);
-  digitalWrite(DB6, 0);
-  digitalWrite(DB5, 0);
-  digitalWrite(DB4, 0);
-  enable();
 }
 //----------------------------------------------------------------------
 void lcdShowChar(char letter)
@@ -113,1158 +83,341 @@ void lcdShowChar(char letter)
 
     case '0':
       enableCursor();
-      digitalWrite(REG, HIGH);
-      delay(pulseWidth);
-
-      digitalWrite(DB7, 0);
-      digitalWrite(DB6, 0);
-      digitalWrite(DB5, 1);
-      digitalWrite(DB4, 1);
-      enable();
-      digitalWrite(DB7, 0);
-      digitalWrite(DB6, 0);
-      digitalWrite(DB5, 0);
-      digitalWrite(DB4, 0);
-      enable();
+      sendBus(0, 0, 1, 1, 0, 0, 0, 0, true, 1);
       break;
 
     case '1':
       enableCursor();
-      digitalWrite(REG, HIGH);
-      delay(pulseWidth);
-
-      digitalWrite(DB7, 0);
-      digitalWrite(DB6, 0);
-      digitalWrite(DB5, 1);
-      digitalWrite(DB4, 1);
-      enable();
-      digitalWrite(DB7, 0);
-      digitalWrite(DB6, 0);
-      digitalWrite(DB5, 0);
-      digitalWrite(DB4, 1);
-      enable();
+      sendBus(0, 0, 1, 1, 0, 0, 0, 1, true, 1);
       break;
 
     case '2':
       enableCursor();
-      digitalWrite(REG, HIGH);
-      delay(pulseWidth);
-
-      digitalWrite(DB7, 0);
-      digitalWrite(DB6, 0);
-      digitalWrite(DB5, 1);
-      digitalWrite(DB4, 1);
-      enable();
-      digitalWrite(DB7, 0);
-      digitalWrite(DB6, 0);
-      digitalWrite(DB5, 1);
-      digitalWrite(DB4, 0);
-      enable();
+      sendBus(0, 0, 1, 1, 0, 0, 1, 0, true, 1);
       break;
 
     case '3':
       enableCursor();
-      digitalWrite(REG, HIGH);
-      delay(pulseWidth);
-
-      digitalWrite(DB7, 0);
-      digitalWrite(DB6, 0);
-      digitalWrite(DB5, 1);
-      digitalWrite(DB4, 1);
-      enable();
-      digitalWrite(DB7, 0);
-      digitalWrite(DB6, 0);
-      digitalWrite(DB5, 1);
-      digitalWrite(DB4, 1);
-      enable();
+      sendBus(0, 0, 1, 1, 0, 0, 1, 1, true, 1);
       break;
 
     case '4':
       enableCursor();
-      digitalWrite(REG, HIGH);
-      delay(pulseWidth);
-
-      digitalWrite(DB7, 0);
-      digitalWrite(DB6, 0);
-      digitalWrite(DB5, 1);
-      digitalWrite(DB4, 1);
-      enable();
-      digitalWrite(DB7, 0);
-      digitalWrite(DB6, 1);
-      digitalWrite(DB5, 0);
-      digitalWrite(DB4, 0);
-      enable();
+      sendBus(0, 0, 1, 1, 0, 1, 0, 0, true, 1);
       break;
 
     case '5':
       enableCursor();
-      digitalWrite(REG, HIGH);
-      delay(pulseWidth);
-
-      digitalWrite(DB7, 0);
-      digitalWrite(DB6, 0);
-      digitalWrite(DB5, 1);
-      digitalWrite(DB4, 1);
-      enable();
-      digitalWrite(DB7, 0);
-      digitalWrite(DB6, 1);
-      digitalWrite(DB5, 0);
-      digitalWrite(DB4, 1);
-      enable();
+      sendBus(0, 0, 1, 1, 0, 1, 0, 1, true, 1);
       break;
 
     case '6':
       enableCursor();
-      digitalWrite(REG, HIGH);
-      delay(pulseWidth);
-
-      digitalWrite(DB7, 0);
-      digitalWrite(DB6, 0);
-      digitalWrite(DB5, 1);
-      digitalWrite(DB4, 1);
-      enable();
-      digitalWrite(DB7, 0);
-      digitalWrite(DB6, 1);
-      digitalWrite(DB5, 1);
-      digitalWrite(DB4, 0);
-      enable();
+      sendBus(0, 0, 1, 1, 0, 1, 1, 0, true, 1);
       break;
 
     case '7':
       enableCursor();
-      digitalWrite(REG, HIGH);
-      delay(pulseWidth);
-
-      digitalWrite(DB7, 0);
-      digitalWrite(DB6, 0);
-      digitalWrite(DB5, 1);
-      digitalWrite(DB4, 1);
-      enable();
-      digitalWrite(DB7, 0);
-      digitalWrite(DB6, 1);
-      digitalWrite(DB5, 1);
-      digitalWrite(DB4, 1);
-      enable();
+      sendBus(0, 0, 1, 1, 0, 1, 1, 1, true, 1);
       break;
 
     case '8':
       enableCursor();
-      digitalWrite(REG, HIGH);
-      delay(pulseWidth);
-
-      digitalWrite(DB7, 0);
-      digitalWrite(DB6, 0);
-      digitalWrite(DB5, 1);
-      digitalWrite(DB4, 1);
-      enable();
-      digitalWrite(DB7, 1);
-      digitalWrite(DB6, 0);
-      digitalWrite(DB5, 0);
-      digitalWrite(DB4, 0);
-      enable();
+      sendBus(0, 0, 1, 1, 1, 0, 0, 0, true, 1);
       break;
 
     case '9':
       enableCursor();
-      digitalWrite(REG, HIGH);
-      delay(pulseWidth);
-
-      digitalWrite(DB7, 0);
-      digitalWrite(DB6, 0);
-      digitalWrite(DB5, 1);
-      digitalWrite(DB4, 1);
-      enable();
-      digitalWrite(DB7, 1);
-      digitalWrite(DB6, 0);
-      digitalWrite(DB5, 0);
-      digitalWrite(DB4, 1);
-      enable();
+      sendBus(0, 0, 1, 1, 1, 0, 0, 1, true, 1);
       break;
 
     case 'A':
       enableCursor();
-      digitalWrite(REG, HIGH);
-      delay(pulseWidth);
-
-      digitalWrite(DB7, 0);
-      digitalWrite(DB6, 1);
-      digitalWrite(DB5, 0);
-      digitalWrite(DB4, 0);
-      enable();
-      digitalWrite(DB7, 0);
-      digitalWrite(DB6, 0);
-      digitalWrite(DB5, 0);
-      digitalWrite(DB4, 1);
-      enable();
+      sendBus(0, 1, 0, 0, 0, 0, 0, 1, true, 1);
       break;
 
     case 'a':
       enableCursor();
-      digitalWrite(REG, HIGH);
-      delay(pulseWidth);
-
-      digitalWrite(DB7, 0);
-      digitalWrite(DB6, 1);
-      digitalWrite(DB5, 1);
-      digitalWrite(DB4, 0);
-      enable();
-      digitalWrite(DB7, 0);
-      digitalWrite(DB6, 0);
-      digitalWrite(DB5, 0);
-      digitalWrite(DB4, 1);
-      enable();
+      sendBus(0, 1, 1, 0, 0, 0, 0, 1, true, 1);
       break;
 
     case 'B':
       enableCursor();
-      digitalWrite(REG, HIGH);
-      delay(pulseWidth);
-
-      digitalWrite(DB7, 0);
-      digitalWrite(DB6, 1);
-      digitalWrite(DB5, 0);
-      digitalWrite(DB4, 0);
-      enable();
-      digitalWrite(DB7, 0);
-      digitalWrite(DB6, 0);
-      digitalWrite(DB5, 1);
-      digitalWrite(DB4, 0);
-      enable();
+      sendBus(0, 1, 0, 0, 0, 0, 1, 0, true, 1);
       break;
 
     case 'b':
       enableCursor();
-      digitalWrite(REG, HIGH);
-      delay(pulseWidth);
-
-      digitalWrite(DB7, 0);
-      digitalWrite(DB6, 1);
-      digitalWrite(DB5, 1);
-      digitalWrite(DB4, 0);
-      enable();
-      digitalWrite(DB7, 0);
-      digitalWrite(DB6, 0);
-      digitalWrite(DB5, 1);
-      digitalWrite(DB4, 0);
-      enable();
+      sendBus(0, 1, 1, 0, 0, 0, 1, 0, true, 1);
       break;
 
     case 'C':
       enableCursor();
-      digitalWrite(REG, HIGH);
-      delay(pulseWidth);
-
-      digitalWrite(DB7, 0);
-      digitalWrite(DB6, 1);
-      digitalWrite(DB5, 0);
-      digitalWrite(DB4, 0);
-      enable();
-      digitalWrite(DB7, 0);
-      digitalWrite(DB6, 0);
-      digitalWrite(DB5, 1);
-      digitalWrite(DB4, 1);
-      enable();
+      sendBus(0, 1, 0, 0, 0, 0, 1, 1, true, 1);
       break;
 
     case 'c':
       enableCursor();
-      digitalWrite(REG, HIGH);
-      delay(pulseWidth);
-
-      digitalWrite(DB7, 0);
-      digitalWrite(DB6, 1);
-      digitalWrite(DB5, 1);
-      digitalWrite(DB4, 0);
-      enable();
-      digitalWrite(DB7, 0);
-      digitalWrite(DB6, 0);
-      digitalWrite(DB5, 1);
-      digitalWrite(DB4, 1);
-      enable();
+      sendBus(0, 1, 1, 0, 0, 0, 1, 1, true, 1);
       break;
 
     case 'D':
       enableCursor();
-      digitalWrite(REG, HIGH);
-      delay(pulseWidth);
-
-      digitalWrite(DB7, 0);
-      digitalWrite(DB6, 1);
-      digitalWrite(DB5, 0);
-      digitalWrite(DB4, 0);
-      enable();
-      digitalWrite(DB7, 0);
-      digitalWrite(DB6, 1);
-      digitalWrite(DB5, 0);
-      digitalWrite(DB4, 0);
-      enable();
+      sendBus(0, 1, 0, 0, 0, 1, 0, 0, true, 1);
       break;
 
     case 'd':
       enableCursor();
-      digitalWrite(REG, HIGH);
-      delay(pulseWidth);
-
-      digitalWrite(DB7, 0);
-      digitalWrite(DB6, 1);
-      digitalWrite(DB5, 1);
-      digitalWrite(DB4, 0);
-      enable();
-      digitalWrite(DB7, 0);
-      digitalWrite(DB6, 1);
-      digitalWrite(DB5, 0);
-      digitalWrite(DB4, 0);
-      enable();
+      sendBus(0, 1, 1, 0, 0, 1, 0, 0, true, 1);
       break;
 
     case 'E':
       enableCursor();
-      digitalWrite(REG, HIGH);
-      delay(pulseWidth);
-
-      digitalWrite(DB7, 0);
-      digitalWrite(DB6, 1);
-      digitalWrite(DB5, 0);
-      digitalWrite(DB4, 0);
-      enable();
-      digitalWrite(DB7, 0);
-      digitalWrite(DB6, 1);
-      digitalWrite(DB5, 0);
-      digitalWrite(DB4, 1);
-      enable();
+      sendBus(0, 1, 0, 0, 0, 1, 0, 1, true, 1);
       break;
 
     case 'e':
       enableCursor();
-      digitalWrite(REG, HIGH);
-      delay(pulseWidth);
-
-      digitalWrite(DB7, 0);
-      digitalWrite(DB6, 1);
-      digitalWrite(DB5, 1);
-      digitalWrite(DB4, 0);
-      enable();
-      digitalWrite(DB7, 0);
-      digitalWrite(DB6, 1);
-      digitalWrite(DB5, 0);
-      digitalWrite(DB4, 1);
-      enable();
+      sendBus(0, 1, 1, 0, 0, 1, 0, 1, true, 1);
       break;
 
     case 'F':
       enableCursor();
-      digitalWrite(REG, HIGH);
-      delay(pulseWidth);
-
-      digitalWrite(DB7, 0);
-      digitalWrite(DB6, 1);
-      digitalWrite(DB5, 0);
-      digitalWrite(DB4, 0);
-      enable();
-      digitalWrite(DB7, 0);
-      digitalWrite(DB6, 1);
-      digitalWrite(DB5, 1);
-      digitalWrite(DB4, 0);
-      enable();
+      sendBus(0, 1, 0, 0, 0, 1, 1, 0, true, 1);
       break;
 
     case 'f':
       enableCursor();
-      digitalWrite(REG, HIGH);
-      delay(pulseWidth);
-
-      digitalWrite(DB7, 0);
-      digitalWrite(DB6, 1);
-      digitalWrite(DB5, 1);
-      digitalWrite(DB4, 0);
-      enable();
-      digitalWrite(DB7, 0);
-      digitalWrite(DB6, 1);
-      digitalWrite(DB5, 1);
-      digitalWrite(DB4, 0);
-      enable();
+      sendBus(0, 1, 1, 0, 0, 1, 1, 0, true, 1);
       break;
 
     case 'G':
       enableCursor();
-      digitalWrite(REG, HIGH);
-      delay(pulseWidth);
-
-      digitalWrite(DB7, 0);
-      digitalWrite(DB6, 1);
-      digitalWrite(DB5, 0);
-      digitalWrite(DB4, 0);
-      enable();
-      digitalWrite(DB7, 0);
-      digitalWrite(DB6, 1);
-      digitalWrite(DB5, 1);
-      digitalWrite(DB4, 1);
-      enable();
+      sendBus(0, 1, 0, 0, 0, 1, 1, 1, true, 1);
       break;
 
     case 'g':
       enableCursor();
-      digitalWrite(REG, HIGH);
-      delay(pulseWidth);
-
-      digitalWrite(DB7, 0);
-      digitalWrite(DB6, 1);
-      digitalWrite(DB5, 1);
-      digitalWrite(DB4, 0);
-      enable();
-      digitalWrite(DB7, 0);
-      digitalWrite(DB6, 1);
-      digitalWrite(DB5, 1);
-      digitalWrite(DB4, 1);
-      enable();
+      sendBus(0, 1, 1, 0, 0, 1, 1, 1, true, 1);
       break;
 
     case 'H':
       enableCursor();
-      digitalWrite(REG, HIGH);
-      delay(pulseWidth);
-
-      digitalWrite(DB7, 0);
-      digitalWrite(DB6, 1);
-      digitalWrite(DB5, 0);
-      digitalWrite(DB4, 0);
-      enable();
-      digitalWrite(DB7, 1);
-      digitalWrite(DB6, 0);
-      digitalWrite(DB5, 0);
-      digitalWrite(DB4, 0);
-      enable();
+      sendBus(0, 1, 0, 0, 1, 0, 0, 0, true, 1);
       break;
 
     case 'h':
       enableCursor();
-      digitalWrite(REG, HIGH);
-      delay(pulseWidth);
-
-      digitalWrite(DB7, 0);
-      digitalWrite(DB6, 1);
-      digitalWrite(DB5, 1);
-      digitalWrite(DB4, 0);
-      enable();
-      digitalWrite(DB7, 1);
-      digitalWrite(DB6, 0);
-      digitalWrite(DB5, 0);
-      digitalWrite(DB4, 0);
-      enable();
+      sendBus(0, 1, 1, 0, 1, 0, 0, 0, true, 1);
       break;
 
     case 'I':
       enableCursor();
-      digitalWrite(REG, HIGH);
-      delay(pulseWidth);
-
-      digitalWrite(DB7, 0);
-      digitalWrite(DB6, 1);
-      digitalWrite(DB5, 0);
-      digitalWrite(DB4, 0);
-      enable();
-      digitalWrite(DB7, 1);
-      digitalWrite(DB6, 0);
-      digitalWrite(DB5, 0);
-      digitalWrite(DB4, 1);
-      enable();
+      sendBus(0, 1, 0, 0, 1, 0, 0, 1, true, 1);
       break;
 
     case 'i':
       enableCursor();
-      digitalWrite(REG, HIGH);
-      delay(pulseWidth);
-
-      digitalWrite(DB7, 0);
-      digitalWrite(DB6, 1);
-      digitalWrite(DB5, 1);
-      digitalWrite(DB4, 0);
-      enable();
-      digitalWrite(DB7, 1);
-      digitalWrite(DB6, 0);
-      digitalWrite(DB5, 0);
-      digitalWrite(DB4, 1);
-      enable();
+      sendBus(0, 1, 1, 0, 1, 0, 0, 1, true, 1);
       break;
 
     case 'J':
       enableCursor();
-      digitalWrite(REG, HIGH);
-      delay(pulseWidth);
-
-      digitalWrite(DB7, 0);
-      digitalWrite(DB6, 1);
-      digitalWrite(DB5, 0);
-      digitalWrite(DB4, 0);
-      enable();
-      digitalWrite(DB7, 1);
-      digitalWrite(DB6, 0);
-      digitalWrite(DB5, 1);
-      digitalWrite(DB4, 0);
-      enable();
+      sendBus(0, 1, 0, 0, 1, 0, 1, 0, true, 1);
       break;
 
     case 'j':
       enableCursor();
-      digitalWrite(REG, HIGH);
-      delay(pulseWidth);
-
-      digitalWrite(DB7, 0);
-      digitalWrite(DB6, 1);
-      digitalWrite(DB5, 1);
-      digitalWrite(DB4, 0);
-      enable();
-      digitalWrite(DB7, 1);
-      digitalWrite(DB6, 0);
-      digitalWrite(DB5, 1);
-      digitalWrite(DB4, 0);
-      enable();
+      sendBus(0, 1, 1, 0, 1, 0, 1, 0, true, 1);
       break;
 
     case 'K':
       enableCursor();
-      digitalWrite(REG, HIGH);
-      delay(pulseWidth);
-
-      digitalWrite(DB7, 0);
-      digitalWrite(DB6, 1);
-      digitalWrite(DB5, 0);
-      digitalWrite(DB4, 0);
-      enable();
-      digitalWrite(DB7, 1);
-      digitalWrite(DB6, 0);
-      digitalWrite(DB5, 1);
-      digitalWrite(DB4, 1);
-      enable();
+      sendBus(0, 1, 0, 0, 1, 0, 1, 1, true, 1);
       break;
 
     case 'k':
       enableCursor();
-      digitalWrite(REG, HIGH);
-      delay(pulseWidth);
-
-      digitalWrite(DB7, 0);
-      digitalWrite(DB6, 1);
-      digitalWrite(DB5, 1);
-      digitalWrite(DB4, 0);
-      enable();
-      digitalWrite(DB7, 1);
-      digitalWrite(DB6, 0);
-      digitalWrite(DB5, 1);
-      digitalWrite(DB4, 1);
-      enable();
+      sendBus(0, 1, 1, 0, 1, 0, 1, 1, true, 1);
       break;
 
     case 'L':
       enableCursor();
-      digitalWrite(REG, HIGH);
-      delay(pulseWidth);
-
-      digitalWrite(DB7, 0);
-      digitalWrite(DB6, 1);
-      digitalWrite(DB5, 0);
-      digitalWrite(DB4, 0);
-      enable();
-      digitalWrite(DB7, 1);
-      digitalWrite(DB6, 1);
-      digitalWrite(DB5, 0);
-      digitalWrite(DB4, 0);
-      enable();
+      sendBus(0, 1, 0, 0, 1, 1, 0, 0, true, 1);
       break;
 
     case 'l':
-      enableCursor();
-      digitalWrite(REG, HIGH);
-      delay(pulseWidth);
-
-      digitalWrite(DB7, 0);
-      digitalWrite(DB6, 1);
-      digitalWrite(DB5, 1);
-      digitalWrite(DB4, 0);
-      enable();
-      digitalWrite(DB7, 1);
-      digitalWrite(DB6, 1);
-      digitalWrite(DB5, 0);
-      digitalWrite(DB4, 0);
-      enable();
+      sendBus(0, 1, 1, 0, 1, 1, 0, 0, true, 1);
       break;
 
     case 'M':
       enableCursor();
-      digitalWrite(REG, HIGH);
-      delay(pulseWidth);
-
-      digitalWrite(DB7, 0);
-      digitalWrite(DB6, 1);
-      digitalWrite(DB5, 0);
-      digitalWrite(DB4, 0);
-      enable();
-      digitalWrite(DB7, 1);
-      digitalWrite(DB6, 1);
-      digitalWrite(DB5, 0);
-      digitalWrite(DB4, 1);
-      enable();
+      sendBus(0, 1, 0, 0, 1, 1, 0, 1, true, 1);
       break;
 
     case 'm':
       enableCursor();
-      digitalWrite(REG, HIGH);
-      delay(pulseWidth);
-
-      digitalWrite(DB7, 0);
-      digitalWrite(DB6, 1);
-      digitalWrite(DB5, 1);
-      digitalWrite(DB4, 0);
-      enable();
-      digitalWrite(DB7, 1);
-      digitalWrite(DB6, 1);
-      digitalWrite(DB5, 0);
-      digitalWrite(DB4, 1);
-      enable();
+      sendBus(0, 1, 1, 0, 1, 1, 0, 1, true, 1);
       break;
 
     case 'N':
       enableCursor();
-      digitalWrite(REG, HIGH);
-      delay(pulseWidth);
-
-      digitalWrite(DB7, 0);
-      digitalWrite(DB6, 1);
-      digitalWrite(DB5, 0);
-      digitalWrite(DB4, 0);
-      enable();
-      digitalWrite(DB7, 1);
-      digitalWrite(DB6, 1);
-      digitalWrite(DB5, 1);
-      digitalWrite(DB4, 0);
-      enable();
+      sendBus(0, 1, 0, 0, 1, 1, 1, 0, true, 1);
       break;
 
     case 'n':
       enableCursor();
-      digitalWrite(REG, HIGH);
-      delay(pulseWidth);
-
-      digitalWrite(DB7, 0);
-      digitalWrite(DB6, 1);
-      digitalWrite(DB5, 1);
-      digitalWrite(DB4, 0);
-      enable();
-      digitalWrite(DB7, 1);
-      digitalWrite(DB6, 1);
-      digitalWrite(DB5, 1);
-      digitalWrite(DB4, 0);
-      enable();
+      sendBus(0, 1, 1, 0, 1, 1, 1, 0, true, 1);
       break;
 
     case 'O':
       enableCursor();
-      digitalWrite(REG, HIGH);
-      delay(pulseWidth);
-
-      digitalWrite(DB7, 0);
-      digitalWrite(DB6, 1);
-      digitalWrite(DB5, 0);
-      digitalWrite(DB4, 0);
-      enable();
-      digitalWrite(DB7, 1);
-      digitalWrite(DB6, 1);
-      digitalWrite(DB5, 1);
-      digitalWrite(DB4, 1);
-      enable();
+      sendBus(0, 1, 0, 0, 1, 1, 1, 1, true, 1);
       break;
 
     case 'o':
       enableCursor();
-      digitalWrite(REG, HIGH);
-      delay(pulseWidth);
-
-      digitalWrite(DB7, 0);
-      digitalWrite(DB6, 1);
-      digitalWrite(DB5, 1);
-      digitalWrite(DB4, 0);
-      enable();
-      digitalWrite(DB7, 1);
-      digitalWrite(DB6, 1);
-      digitalWrite(DB5, 1);
-      digitalWrite(DB4, 1);
-      enable();
+      sendBus(0, 1, 1, 0, 1, 1, 1, 1, true, 1);
       break;
 
     case 'P':
       enableCursor();
-      digitalWrite(REG, HIGH);
-      delay(pulseWidth);
-
-      digitalWrite(DB7, 0);
-      digitalWrite(DB6, 1);
-      digitalWrite(DB5, 0);
-      digitalWrite(DB4, 1);
-      enable();
-      digitalWrite(DB7, 0);
-      digitalWrite(DB6, 0);
-      digitalWrite(DB5, 0);
-      digitalWrite(DB4, 0);
-      enable();
+      sendBus(0, 1, 0, 1, 0, 0, 0, 0, true, 1);
       break;
 
     case 'p':
       enableCursor();
-      digitalWrite(REG, HIGH);
-      delay(pulseWidth);
-
-      digitalWrite(DB7, 0);
-      digitalWrite(DB6, 1);
-      digitalWrite(DB5, 1);
-      digitalWrite(DB4, 1);
-      enable();
-      digitalWrite(DB7, 0);
-      digitalWrite(DB6, 0);
-      digitalWrite(DB5, 0);
-      digitalWrite(DB4, 0);
-      enable();
+      sendBus(0, 1, 1, 1, 0, 0, 0, 0, true, 1);
       break;
 
     case 'Q':
       enableCursor();
-      digitalWrite(REG, HIGH);
-      delay(pulseWidth);
-
-      digitalWrite(DB7, 0);
-      digitalWrite(DB6, 1);
-      digitalWrite(DB5, 0);
-      digitalWrite(DB4, 1);
-      enable();
-      digitalWrite(DB7, 0);
-      digitalWrite(DB6, 0);
-      digitalWrite(DB5, 0);
-      digitalWrite(DB4, 1);
-      enable();
+      sendBus(0, 1, 0, 1, 0, 0, 0, 1, true, 1);
       break;
 
     case 'q':
       enableCursor();
-      digitalWrite(REG, HIGH);
-      delay(pulseWidth);
-
-      digitalWrite(DB7, 0);
-      digitalWrite(DB6, 1);
-      digitalWrite(DB5, 1);
-      digitalWrite(DB4, 1);
-      enable();
-      digitalWrite(DB7, 0);
-      digitalWrite(DB6, 0);
-      digitalWrite(DB5, 0);
-      digitalWrite(DB4, 1);
-      enable();
+      sendBus(0, 1, 1, 1, 0, 0, 0, 1, true, 1);
       break;
 
     case 'R':
       enableCursor();
-      digitalWrite(REG, HIGH);
-      delay(pulseWidth);
-
-      digitalWrite(DB7, 0);
-      digitalWrite(DB6, 1);
-      digitalWrite(DB5, 0);
-      digitalWrite(DB4, 1);
-      enable();
-      digitalWrite(DB7, 0);
-      digitalWrite(DB6, 0);
-      digitalWrite(DB5, 1);
-      digitalWrite(DB4, 0);
-      enable();
+      sendBus(0, 1, 0, 1, 0, 0, 1, 0, true, 1);
       break;
 
     case 'r':
       enableCursor();
-      digitalWrite(REG, HIGH);
-      delay(pulseWidth);
-
-      digitalWrite(DB7, 0);
-      digitalWrite(DB6, 1);
-      digitalWrite(DB5, 1);
-      digitalWrite(DB4, 1);
-      enable();
-      digitalWrite(DB7, 0);
-      digitalWrite(DB6, 0);
-      digitalWrite(DB5, 1);
-      digitalWrite(DB4, 0);
-      enable();
+      sendBus(0, 1, 1, 1, 0, 0, 1, 0, true, 1);
       break;
 
     case 'S':
       enableCursor();
-      digitalWrite(REG, HIGH);
-      delay(pulseWidth);
-
-      digitalWrite(DB7, 0);
-      digitalWrite(DB6, 1);
-      digitalWrite(DB5, 0);
-      digitalWrite(DB4, 1);
-      enable();
-      digitalWrite(DB7, 0);
-      digitalWrite(DB6, 0);
-      digitalWrite(DB5, 1);
-      digitalWrite(DB4, 1);
-      enable();
+      sendBus(0, 1, 0, 1, 0, 0, 1, 1, true, 1);
       break;
 
     case 's':
       enableCursor();
-      digitalWrite(REG, HIGH);
-      delay(pulseWidth);
-
-      digitalWrite(DB7, 0);
-      digitalWrite(DB6, 1);
-      digitalWrite(DB5, 1);
-      digitalWrite(DB4, 1);
-      enable();
-      digitalWrite(DB7, 0);
-      digitalWrite(DB6, 0);
-      digitalWrite(DB5, 1);
-      digitalWrite(DB4, 1);
-      enable();
+      sendBus(0, 1, 1, 1, 0, 0, 1, 1, true, 1);
       break;
 
     case 'T':
       enableCursor();
-      digitalWrite(REG, HIGH);
-      delay(pulseWidth);
-
-      digitalWrite(DB7, 0);
-      digitalWrite(DB6, 1);
-      digitalWrite(DB5, 0);
-      digitalWrite(DB4, 1);
-      enable();
-      digitalWrite(DB7, 0);
-      digitalWrite(DB6, 1);
-      digitalWrite(DB5, 0);
-      digitalWrite(DB4, 0);
-      enable();
+      sendBus(0, 1, 0, 1, 0, 1, 0, 0, true, 1);
       break;
 
     case 't':
       enableCursor();
-      digitalWrite(REG, HIGH);
-      delay(pulseWidth);
-
-      digitalWrite(DB7, 0);
-      digitalWrite(DB6, 1);
-      digitalWrite(DB5, 1);
-      digitalWrite(DB4, 1);
-      enable();
-      digitalWrite(DB7, 0);
-      digitalWrite(DB6, 1);
-      digitalWrite(DB5, 0);
-      digitalWrite(DB4, 0);
-      enable();
+      sendBus(0, 1, 1, 1, 0, 1, 0, 0, true, 1);
       break;
 
     case 'U':
       enableCursor();
-      digitalWrite(REG, HIGH);
-      delay(pulseWidth);
-
-      digitalWrite(DB7, 0);
-      digitalWrite(DB6, 1);
-      digitalWrite(DB5, 0);
-      digitalWrite(DB4, 1);
-      enable();
-      digitalWrite(DB7, 0);
-      digitalWrite(DB6, 1);
-      digitalWrite(DB5, 0);
-      digitalWrite(DB4, 1);
-      enable();
+      sendBus(0, 1, 0, 1, 0, 1, 0, 1, true, 1);
       break;
 
     case 'u':
       enableCursor();
-      digitalWrite(REG, HIGH);
-      delay(pulseWidth);
-
-      digitalWrite(DB7, 0);
-      digitalWrite(DB6, 1);
-      digitalWrite(DB5, 1);
-      digitalWrite(DB4, 1);
-      enable();
-      digitalWrite(DB7, 0);
-      digitalWrite(DB6, 1);
-      digitalWrite(DB5, 0);
-      digitalWrite(DB4, 1);
-      enable();
+      sendBus(0, 1, 1, 1, 0, 1, 0, 1, true, 1);
       break;
 
     case 'V':
       enableCursor();
-      digitalWrite(REG, HIGH);
-      delay(pulseWidth);
-
-      digitalWrite(DB7, 0);
-      digitalWrite(DB6, 1);
-      digitalWrite(DB5, 0);
-      digitalWrite(DB4, 1);
-      enable();
-      digitalWrite(DB7, 0);
-      digitalWrite(DB6, 1);
-      digitalWrite(DB5, 1);
-      digitalWrite(DB4, 0);
-      enable();
+      sendBus(0, 1, 0, 1, 0, 1, 1, 0, true, 1);
       break;
 
     case 'v':
       enableCursor();
-      digitalWrite(REG, HIGH);
-      delay(pulseWidth);
-
-      digitalWrite(DB7, 0);
-      digitalWrite(DB6, 1);
-      digitalWrite(DB5, 1);
-      digitalWrite(DB4, 1);
-      enable();
-      digitalWrite(DB7, 0);
-      digitalWrite(DB6, 1);
-      digitalWrite(DB5, 1);
-      digitalWrite(DB4, 0);
-      enable();
+      sendBus(0, 1, 1, 1, 0, 1, 1, 0, true, 1);
       break;
 
     case 'W':
       enableCursor();
-      digitalWrite(REG, HIGH);
-      delay(pulseWidth);
-
-      digitalWrite(DB7, 0);
-      digitalWrite(DB6, 1);
-      digitalWrite(DB5, 0);
-      digitalWrite(DB4, 1);
-      enable();
-      digitalWrite(DB7, 0);
-      digitalWrite(DB6, 1);
-      digitalWrite(DB5, 1);
-      digitalWrite(DB4, 1);
-      enable();
+      sendBus(0, 1, 0, 1, 0, 1, 1, 1, true, 1);
       break;
 
     case 'w':
       enableCursor();
-      digitalWrite(REG, HIGH);
-      delay(pulseWidth);
-
-      digitalWrite(DB7, 0);
-      digitalWrite(DB6, 1);
-      digitalWrite(DB5, 1);
-      digitalWrite(DB4, 1);
-      enable();
-      digitalWrite(DB7, 0);
-      digitalWrite(DB6, 1);
-      digitalWrite(DB5, 1);
-      digitalWrite(DB4, 1);
-      enable();
+      sendBus(0, 1, 1, 1, 0, 1, 1, 1, true, 1);
       break;
 
     case 'X':
       enableCursor();
-      digitalWrite(REG, HIGH);
-      delay(pulseWidth);
-
-      digitalWrite(DB7, 0);
-      digitalWrite(DB6, 1);
-      digitalWrite(DB5, 0);
-      digitalWrite(DB4, 1);
-      enable();
-      digitalWrite(DB7, 1);
-      digitalWrite(DB6, 0);
-      digitalWrite(DB5, 0);
-      digitalWrite(DB4, 0);
-      enable();
+      sendBus(0, 1, 0, 1, 1, 0, 0, 0, true, 1);
       break;
 
     case 'x':
       enableCursor();
-      digitalWrite(REG, HIGH);
-      delay(pulseWidth);
-
-      digitalWrite(DB7, 0);
-      digitalWrite(DB6, 1);
-      digitalWrite(DB5, 1);
-      digitalWrite(DB4, 1);
-      enable();
-      digitalWrite(DB7, 1);
-      digitalWrite(DB6, 0);
-      digitalWrite(DB5, 0);
-      digitalWrite(DB4, 0);
-      enable();
+      sendBus(0, 1, 1, 1, 1, 0, 0, 0, true, 1);
       break;
 
     case 'Y':
       enableCursor();
-      digitalWrite(REG, HIGH);
-      delay(pulseWidth);
-
-      digitalWrite(DB7, 0);
-      digitalWrite(DB6, 1);
-      digitalWrite(DB5, 0);
-      digitalWrite(DB4, 1);
-      enable();
-      digitalWrite(DB7, 1);
-      digitalWrite(DB6, 0);
-      digitalWrite(DB5, 0);
-      digitalWrite(DB4, 1);
-      enable();
+      sendBus(0, 1, 0, 1, 1, 0, 0, 1, true, 1);
       break;
 
     case 'y':
       enableCursor();
-      digitalWrite(REG, HIGH);
-      delay(pulseWidth);
-
-      digitalWrite(DB7, 0);
-      digitalWrite(DB6, 1);
-      digitalWrite(DB5, 1);
-      digitalWrite(DB4, 1);
-      enable();
-      digitalWrite(DB7, 1);
-      digitalWrite(DB6, 0);
-      digitalWrite(DB5, 0);
-      digitalWrite(DB4, 1);
-      enable();
+      sendBus(0, 1, 1, 1, 1, 0, 0, 1, true, 1);
       break;
 
     case 'Z':
       enableCursor();
-      digitalWrite(REG, HIGH);
-      delay(pulseWidth);
-
-      digitalWrite(DB7, 0);
-      digitalWrite(DB6, 1);
-      digitalWrite(DB5, 0);
-      digitalWrite(DB4, 1);
-      enable();
-      digitalWrite(DB7, 1);
-      digitalWrite(DB6, 0);
-      digitalWrite(DB5, 1);
-      digitalWrite(DB4, 0);
-      enable();
+      sendBus(0, 1, 0, 1, 1, 0, 1, 0, true, 1);
       break;
 
     case 'z':
       enableCursor();
-      digitalWrite(REG, HIGH);
-      delay(pulseWidth);
-
-      digitalWrite(DB7, 0);
-      digitalWrite(DB6, 1);
-      digitalWrite(DB5, 1);
-      digitalWrite(DB4, 1);
-      enable();
-      digitalWrite(DB7, 1);
-      digitalWrite(DB6, 0);
-      digitalWrite(DB5, 1);
-      digitalWrite(DB4, 0);
-      enable();
+      sendBus(0, 1, 1, 1, 1, 0, 1, 0, true, 1);
       break;
 
     case ' ':
       enableCursor();
-      digitalWrite(REG, HIGH);
-      delay(pulseWidth);
-
-      digitalWrite(DB7, 0);
-      digitalWrite(DB6, 0);
-      digitalWrite(DB5, 1);
-      digitalWrite(DB4, 0);
-      enable();
-      digitalWrite(DB7, 0);
-      digitalWrite(DB6, 0);
-      digitalWrite(DB5, 0);
-      digitalWrite(DB4, 0);
-      enable();
+      sendBus(0, 0, 1, 0, 0, 0, 0, 0, true, 1);
       break;
 
     case '*':
       enableCursor();
-      digitalWrite(REG, HIGH);
-      delay(pulseWidth);
-
-      digitalWrite(DB7, 0);
-      digitalWrite(DB6, 0);
-      digitalWrite(DB5, 1);
-      digitalWrite(DB4, 0);
-      enable();
-      digitalWrite(DB7, 1);
-      digitalWrite(DB6, 0);
-      digitalWrite(DB5, 1);
-      digitalWrite(DB4, 0);
-      enable();
+      sendBus(0, 0, 1, 0, 1, 0, 1, 0, true, 1);
       break;
 
     case ':':
       enableCursor();
-      digitalWrite(REG, HIGH);
-      delay(pulseWidth);
-
-      digitalWrite(DB7, 0);
-      digitalWrite(DB6, 0);
-      digitalWrite(DB5, 1);
-      digitalWrite(DB4, 1);
-      enable();
-      digitalWrite(DB7, 1);
-      digitalWrite(DB6, 0);
-      digitalWrite(DB5, 1);
-      digitalWrite(DB4, 0);
-      enable();
+      sendBus(0, 0, 1, 1, 1, 0, 1, 0, true, 1);
       break;
 
     case '?':
       enableCursor();
-      digitalWrite(REG, HIGH);
-      delay(pulseWidth);
-
-      digitalWrite(DB7, 0);
-      digitalWrite(DB6, 0);
-      digitalWrite(DB5, 1);
-      digitalWrite(DB4, 1);
-      enable();
-      digitalWrite(DB7, 1);
-      digitalWrite(DB6, 1);
-      digitalWrite(DB5, 1);
-      digitalWrite(DB4, 1);
-      enable();
+      sendBus(0, 0, 1, 1, 1, 1, 1, 1, true, 1);
       break;
 
     case '#':
       enableCursor();
-      digitalWrite(REG, HIGH);
-      delay(pulseWidth);
-
-      digitalWrite(DB7, 0);
-      digitalWrite(DB6, 0);
-      digitalWrite(DB5, 1);
-      digitalWrite(DB4, 0);
-      enable();
-      digitalWrite(DB7, 0);
-      digitalWrite(DB6, 0);
-      digitalWrite(DB5, 1);
-      digitalWrite(DB4, 1);
-      enable();
+      sendBus(0, 0, 1, 0, 0, 0, 1, 1, true, 1);
       break;
 
     case '!':
       enableCursor();
-      digitalWrite(REG, HIGH);
-      delay(pulseWidth);
-
-      digitalWrite(DB7, 0);
-      digitalWrite(DB6, 0);
-      digitalWrite(DB5, 1);
-      digitalWrite(DB4, 0);
-      enable();
-      digitalWrite(DB7, 0);
-      digitalWrite(DB6, 0);
-      digitalWrite(DB5, 0);
-      digitalWrite(DB4, 1);
-      enable();
+      sendBus(0, 0, 1, 0, 0, 0, 0, 1, true, 1);
       break;
   }
 }
@@ -1308,59 +461,15 @@ void bootUp () {
 
 void backspace() {
   if (cursorPosition > 1) {
-    digitalWrite(REG, LOW);
-    delay(pulseWidth);
-
-    digitalWrite(DB7, 0);
-    digitalWrite(DB6, 0);
-    digitalWrite(DB5, 0);
-    digitalWrite(DB4, 1);
-    enable();
-
-    digitalWrite(DB7, 0);
-    digitalWrite(DB6, 0);
-    digitalWrite(DB5, 0);
-    digitalWrite(DB4, 0);
-    enable();
-
+    sendBus(0, 0, 0, 1, 0, 0, 0, 0, true, 0);
     cursorPosition--;
     lcdPrint(" ");
-
-    digitalWrite(REG, LOW);
-    delay(pulseWidth);
-
-    digitalWrite(DB7, 0);
-    digitalWrite(DB6, 0);
-    digitalWrite(DB5, 0);
-    digitalWrite(DB4, 1);
-    enable();
-
-    digitalWrite(DB7, 0);
-    digitalWrite(DB6, 0);
-    digitalWrite(DB5, 0);
-    digitalWrite(DB4, 0);
-    enable();
-
+    sendBus(0, 0, 0, 1, 0, 0, 0, 0, true, 0);
     cursorPosition--;
   }
   else if (cursorPosition == 1) {
     lcdPrint(" ");
-
-    digitalWrite(REG, LOW);
-    delay(pulseWidth);
-
-    digitalWrite(DB7, 0);
-    digitalWrite(DB6, 0);
-    digitalWrite(DB5, 0);
-    digitalWrite(DB4, 1);
-    enable();
-
-    digitalWrite(DB7, 0);
-    digitalWrite(DB6, 0);
-    digitalWrite(DB5, 0);
-    digitalWrite(DB4, 0);
-    enable();
-
+    sendBus(0, 0, 0, 1, 0, 0, 0, 0, true, 0);
     cursorPosition--;
   }
 }
