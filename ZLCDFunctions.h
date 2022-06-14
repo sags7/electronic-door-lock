@@ -72,16 +72,114 @@ void disableCursor()
   sendBus(0, 0, 0, 0, 1, 1, 0, 0, true, 0);
 }
 
-void secondLine()
+void firstLine(int position = 1)
 {
-  sendBus(1, 1, 0, 0, 0, 0, 0, 0, true, 0);
-  cursorPosition = 1;
+  cursorPosition = position;
+  switch (position) {
+    case 1:
+      sendBus(1, 0, 0, 0, 0, 0, 0, 0, true, 0);
+      break;
+    case 2:
+      sendBus(1, 0, 0, 0, 0, 0, 0, 1, true, 0);
+      break;
+    case 3:
+      sendBus(1, 0, 0, 0, 0, 0, 1, 0, true, 0);
+      break;
+    case 4:
+      sendBus(1, 0, 0, 0, 0, 0, 1, 1, true, 0);
+      break;
+    case 5:
+      sendBus(1, 0, 0, 0, 0, 1, 0, 0, true, 0);
+      break;
+    case 6:
+      sendBus(1, 0, 0, 0, 0, 1, 0, 1, true, 0);
+      break;
+    case 7:
+      sendBus(1, 0, 0, 0, 0, 1, 1, 0, true, 0);
+      break;
+    case 8:
+      sendBus(1, 0, 0, 0, 0, 1, 1, 1, true, 0);
+      break;
+    case 9:
+      sendBus(1, 0, 0, 0, 1, 0, 0, 0, true, 0);
+      break;
+    case 10:
+      sendBus(1, 0, 0, 0, 1, 0, 0, 1, true, 0);
+      break;
+    case 11:
+      sendBus(1, 0, 0, 0, 1, 0, 1, 0, true, 0);
+      break;
+    case 12:
+      sendBus(1, 0, 0, 0, 1, 0, 1, 1, true, 0);
+      break;
+    case 13:
+      sendBus(1, 0, 0, 0, 1, 1, 0, 0, true, 0);
+      break;
+    case 14:
+      sendBus(1, 0, 0, 0, 1, 1, 0, 1, true, 0);
+      break;
+    case 15:
+      sendBus(1, 0, 0, 0, 1, 1, 1, 0, true, 0);
+      break;
+    case 16:
+      sendBus(1, 0, 0, 0, 1, 1, 1, 1, true, 0);
+      break;
+  }
 }
 
-void firstLine()
+void secondLine(int position = 1)
 {
-  sendBus(1, 0, 0, 0, 0, 0, 0, 0, true, 0);
-  cursorPosition = 1;
+  cursorPosition = position;
+  switch (position) {
+    case 1:
+      sendBus(1, 1, 0, 0, 0, 0, 0, 0, true, 0);
+      break;
+    case 2:
+      sendBus(1, 1, 0, 0, 0, 0, 0, 1, true, 0);
+      break;
+    case 3:
+      sendBus(1, 1, 0, 0, 0, 0, 1, 0, true, 0);
+      break;
+    case 4:
+      sendBus(1, 1, 0, 0, 0, 0, 1, 1, true, 0);
+      break;
+    case 5:
+      sendBus(1, 1, 0, 0, 0, 1, 0, 0, true, 0);
+      break;
+    case 6:
+      sendBus(1, 1, 0, 0, 0, 1, 0, 1, true, 0);
+      break;
+    case 7:
+      sendBus(1, 1, 0, 0, 0, 1, 1, 0, true, 0);
+      break;
+    case 8:
+      sendBus(1, 1, 0, 0, 0, 1, 1, 1, true, 0);
+      break;
+    case 9:
+      sendBus(1, 1, 0, 0, 1, 0, 0, 0, true, 0);
+      break;
+    case 10:
+      sendBus(1, 1, 0, 0, 1, 0, 0, 1, true, 0);
+      break;
+    case 11:
+      sendBus(1, 1, 0, 0, 1, 0, 1, 0, true, 0);
+      break;
+    case 12:
+      sendBus(1, 1, 0, 0, 1, 0, 1, 1, true, 0);
+      break;
+    case 13:
+      sendBus(1, 1, 0, 0, 1, 1, 0, 0, true, 0);
+      break;
+    case 14:
+      sendBus(1, 1, 0, 0, 1, 1, 0, 1, true, 0);
+      break;
+    case 15:
+      sendBus(1, 1, 0, 0, 1, 1, 1, 0, true, 0);
+      break;
+    case 16:
+      sendBus(1, 1, 0, 0, 1, 1, 1, 1, true, 0);
+      break;
+  }
 }
 
 //----------------------------------------------------------------------
@@ -89,82 +187,66 @@ void lcdShowChar(char letter)
 {
   switch (letter)
   {
-
     case '0':
       enableCursor();
       sendBus(0, 0, 1, 1, 0, 0, 0, 0, true, 1);
       break;
-
     case '1':
       enableCursor();
       sendBus(0, 0, 1, 1, 0, 0, 0, 1, true, 1);
       break;
-
     case '2':
       enableCursor();
       sendBus(0, 0, 1, 1, 0, 0, 1, 0, true, 1);
       break;
-
     case '3':
       enableCursor();
       sendBus(0, 0, 1, 1, 0, 0, 1, 1, true, 1);
       break;
-
     case '4':
       enableCursor();
       sendBus(0, 0, 1, 1, 0, 1, 0, 0, true, 1);
       break;
-
     case '5':
       enableCursor();
       sendBus(0, 0, 1, 1, 0, 1, 0, 1, true, 1);
       break;
-
     case '6':
       enableCursor();
       sendBus(0, 0, 1, 1, 0, 1, 1, 0, true, 1);
       break;
-
     case '7':
       enableCursor();
       sendBus(0, 0, 1, 1, 0, 1, 1, 1, true, 1);
       break;
-
     case '8':
       enableCursor();
       sendBus(0, 0, 1, 1, 1, 0, 0, 0, true, 1);
       break;
-
     case '9':
       enableCursor();
       sendBus(0, 0, 1, 1, 1, 0, 0, 1, true, 1);
       break;
-
     case 'A':
       enableCursor();
       sendBus(0, 1, 0, 0, 0, 0, 0, 1, true, 1);
       break;
-
     case 'a':
       enableCursor();
       sendBus(0, 1, 1, 0, 0, 0, 0, 1, true, 1);
       break;
-
     case 'B':
       enableCursor();
       sendBus(0, 1, 0, 0, 0, 0, 1, 0, true, 1);
       break;
-
     case 'b':
       enableCursor();
       sendBus(0, 1, 1, 0, 0, 0, 1, 0, true, 1);
       break;
-
     case 'C':
       enableCursor();
       sendBus(0, 1, 0, 0, 0, 0, 1, 1, true, 1);
       break;
-
     case 'c':
       enableCursor();
       sendBus(0, 1, 1, 0, 0, 0, 1, 1, true, 1);
@@ -174,32 +256,26 @@ void lcdShowChar(char letter)
       enableCursor();
       sendBus(0, 1, 0, 0, 0, 1, 0, 0, true, 1);
       break;
-
     case 'd':
       enableCursor();
       sendBus(0, 1, 1, 0, 0, 1, 0, 0, true, 1);
       break;
-
     case 'E':
       enableCursor();
       sendBus(0, 1, 0, 0, 0, 1, 0, 1, true, 1);
       break;
-
     case 'e':
       enableCursor();
       sendBus(0, 1, 1, 0, 0, 1, 0, 1, true, 1);
       break;
-
     case 'F':
       enableCursor();
       sendBus(0, 1, 0, 0, 0, 1, 1, 0, true, 1);
       break;
-
     case 'f':
       enableCursor();
       sendBus(0, 1, 1, 0, 0, 1, 1, 0, true, 1);
       break;
-
     case 'G':
       enableCursor();
       sendBus(0, 1, 0, 0, 0, 1, 1, 1, true, 1);
@@ -209,17 +285,14 @@ void lcdShowChar(char letter)
       enableCursor();
       sendBus(0, 1, 1, 0, 0, 1, 1, 1, true, 1);
       break;
-
     case 'H':
       enableCursor();
       sendBus(0, 1, 0, 0, 1, 0, 0, 0, true, 1);
       break;
-
     case 'h':
       enableCursor();
       sendBus(0, 1, 1, 0, 1, 0, 0, 0, true, 1);
       break;
-
     case 'I':
       enableCursor();
       sendBus(0, 1, 0, 0, 1, 0, 0, 1, true, 1);
@@ -229,12 +302,10 @@ void lcdShowChar(char letter)
       enableCursor();
       sendBus(0, 1, 1, 0, 1, 0, 0, 1, true, 1);
       break;
-
     case 'J':
       enableCursor();
       sendBus(0, 1, 0, 0, 1, 0, 1, 0, true, 1);
       break;
-
     case 'j':
       enableCursor();
       sendBus(0, 1, 1, 0, 1, 0, 1, 0, true, 1);
@@ -244,7 +315,6 @@ void lcdShowChar(char letter)
       enableCursor();
       sendBus(0, 1, 0, 0, 1, 0, 1, 1, true, 1);
       break;
-
     case 'k':
       enableCursor();
       sendBus(0, 1, 1, 0, 1, 0, 1, 1, true, 1);
@@ -254,176 +324,141 @@ void lcdShowChar(char letter)
       enableCursor();
       sendBus(0, 1, 0, 0, 1, 1, 0, 0, true, 1);
       break;
-
     case 'l':
       sendBus(0, 1, 1, 0, 1, 1, 0, 0, true, 1);
       break;
-
     case 'M':
       enableCursor();
       sendBus(0, 1, 0, 0, 1, 1, 0, 1, true, 1);
       break;
-
     case 'm':
       enableCursor();
       sendBus(0, 1, 1, 0, 1, 1, 0, 1, true, 1);
       break;
-
     case 'N':
       enableCursor();
       sendBus(0, 1, 0, 0, 1, 1, 1, 0, true, 1);
       break;
-
     case 'n':
       enableCursor();
       sendBus(0, 1, 1, 0, 1, 1, 1, 0, true, 1);
       break;
-
     case 'O':
       enableCursor();
       sendBus(0, 1, 0, 0, 1, 1, 1, 1, true, 1);
       break;
-
     case 'o':
       enableCursor();
       sendBus(0, 1, 1, 0, 1, 1, 1, 1, true, 1);
       break;
-
     case 'P':
       enableCursor();
       sendBus(0, 1, 0, 1, 0, 0, 0, 0, true, 1);
       break;
-
     case 'p':
       enableCursor();
       sendBus(0, 1, 1, 1, 0, 0, 0, 0, true, 1);
       break;
-
     case 'Q':
       enableCursor();
       sendBus(0, 1, 0, 1, 0, 0, 0, 1, true, 1);
       break;
-
     case 'q':
       enableCursor();
       sendBus(0, 1, 1, 1, 0, 0, 0, 1, true, 1);
       break;
-
     case 'R':
       enableCursor();
       sendBus(0, 1, 0, 1, 0, 0, 1, 0, true, 1);
       break;
-
     case 'r':
       enableCursor();
       sendBus(0, 1, 1, 1, 0, 0, 1, 0, true, 1);
       break;
-
     case 'S':
       enableCursor();
       sendBus(0, 1, 0, 1, 0, 0, 1, 1, true, 1);
       break;
-
     case 's':
       enableCursor();
       sendBus(0, 1, 1, 1, 0, 0, 1, 1, true, 1);
       break;
-
     case 'T':
       enableCursor();
       sendBus(0, 1, 0, 1, 0, 1, 0, 0, true, 1);
       break;
-
     case 't':
       enableCursor();
       sendBus(0, 1, 1, 1, 0, 1, 0, 0, true, 1);
       break;
-
     case 'U':
       enableCursor();
       sendBus(0, 1, 0, 1, 0, 1, 0, 1, true, 1);
       break;
-
     case 'u':
       enableCursor();
       sendBus(0, 1, 1, 1, 0, 1, 0, 1, true, 1);
       break;
-
     case 'V':
       enableCursor();
       sendBus(0, 1, 0, 1, 0, 1, 1, 0, true, 1);
       break;
-
     case 'v':
       enableCursor();
       sendBus(0, 1, 1, 1, 0, 1, 1, 0, true, 1);
       break;
-
     case 'W':
       enableCursor();
       sendBus(0, 1, 0, 1, 0, 1, 1, 1, true, 1);
       break;
-
     case 'w':
       enableCursor();
       sendBus(0, 1, 1, 1, 0, 1, 1, 1, true, 1);
       break;
-
     case 'X':
       enableCursor();
       sendBus(0, 1, 0, 1, 1, 0, 0, 0, true, 1);
       break;
-
     case 'x':
       enableCursor();
       sendBus(0, 1, 1, 1, 1, 0, 0, 0, true, 1);
       break;
-
     case 'Y':
       enableCursor();
       sendBus(0, 1, 0, 1, 1, 0, 0, 1, true, 1);
       break;
-
     case 'y':
       enableCursor();
       sendBus(0, 1, 1, 1, 1, 0, 0, 1, true, 1);
       break;
-
     case 'Z':
       enableCursor();
       sendBus(0, 1, 0, 1, 1, 0, 1, 0, true, 1);
       break;
-
     case 'z':
       enableCursor();
       sendBus(0, 1, 1, 1, 1, 0, 1, 0, true, 1);
       break;
-
     case ' ':
       enableCursor();
       sendBus(0, 0, 1, 0, 0, 0, 0, 0, true, 1);
       break;
-
     case '*':
       enableCursor();
       sendBus(0, 0, 1, 0, 1, 0, 1, 0, true, 1);
       break;
-
     case ':':
       enableCursor();
       sendBus(0, 0, 1, 1, 1, 0, 1, 0, true, 1);
       break;
-
     case '?':
       enableCursor();
       sendBus(0, 0, 1, 1, 1, 1, 1, 1, true, 1);
       break;
-
     case '#':
       enableCursor();
       sendBus(0, 0, 1, 0, 0, 0, 1, 1, true, 1);
       break;
-
     case '!':
       enableCursor();
       sendBus(0, 0, 1, 0, 0, 0, 0, 1, true, 1);
@@ -431,10 +466,8 @@ void lcdShowChar(char letter)
   }
 }
 
-
 void lcdPrint(String sentence, short lineLength = 16)
 {
-  delayMicroseconds(pulseWidth);
   if (sentence.length() <= lineLength - cursorPosition)
   {
     for (int i = 0; i < sentence.length(); i++)

@@ -39,7 +39,7 @@ bool hashtag(String s = "") {
   return false;
 }
 
-
+bool hidePass = false;
 bool shown = false;
 void passwordScreen() {
   if (shown == false) {
@@ -53,13 +53,21 @@ void passwordScreen() {
     if (!star(lastBtn) && !hashtag(lastBtn)) {
       inputPassword += lastBtn;
       if (inputPassword.length() == 1) {
-        firstLine();
-        lcdPrint("* Erase # Accept");
+        clearDisplay();
+        lcdPrint("* Erase");
         secondLine();
+        hidePass ? lcdPrint("*") : lcdPrint(lastBtn);
       }
-      lcdPrint("*");
+      else if (inputPassword.length() == 2) {
+        sendBus(1, 0, 0, 0, 1, 0, 0, 0, true, 0);
+        lcdPrint("# Accept");
+        secondLine(2);
+        hidePass ? lcdPrint("*") : lcdPrint(lastBtn);
+      }
+      else {
+        hidePass ? lcdPrint("*") : lcdPrint(lastBtn);
+      }
     }
-    //lastBtn = "";
   }
 }
 
