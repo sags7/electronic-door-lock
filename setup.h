@@ -10,7 +10,7 @@ const char DB7 = 11;
 const char REG = 12;
 const char ENE = 13;
 
-const short pulseWidth = 5;
+const short pulseWidth = 4;
 const char lcdOnPin = A2;
 short cursorPosition = 1;
 //--------------------------------

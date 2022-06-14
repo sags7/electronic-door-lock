@@ -8,6 +8,7 @@
 bool doonce = true;
 String savedPassword = "";
 String inputPassword = "";
+int servoPosition = 0;
 
 bool star(String s = "") {
   if (s == "*") {
@@ -22,12 +23,14 @@ bool hashtag(String s = "") {
     if (savedPassword == inputPassword) {
       clearDisplay();
       lcdPrint("Access Granted!!");
+      servoPosition = 180;
       secondLine();
       inputPassword = "";
     }
     else {
       clearDisplay();
       lcdPrint("Access Denied!!");
+      servoPosition = 0;
       secondLine();
       inputPassword = "";
     }
@@ -45,10 +48,16 @@ void passwordScreen() {
     secondLine();
     shown = true;
   }
+
   if (btnReleased() != "") {
     if (!star(lastBtn) && !hashtag(lastBtn)) {
-      lcdPrint("*");
       inputPassword += lastBtn;
+      if (inputPassword.length() == 1) {
+        firstLine();
+        lcdPrint("* Erase # Accept");
+        secondLine();
+      }
+      lcdPrint("*");
     }
     lastBtn = "";
   }
@@ -73,6 +82,7 @@ void loop() {
     doonce = false;
   }
   passwordScreen();
+  servoControl(servoPosition);
 }
 
 

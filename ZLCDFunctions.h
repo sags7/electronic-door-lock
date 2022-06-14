@@ -7,8 +7,8 @@ void enable()
   digitalWrite(ENE, LOW);
 }
 
-void sendBus (int b7, int b6, int b5, int b4, int b3, int b2, int b1, int b0, bool DB4bit = true, int rs = 1) {
-  if (DB4bit == true) {
+void sendBus (int b7, int b6, int b5, int b4, int b3, int b2, int b1, int b0, bool bit4 = true, int rs = 1) {
+  if (bit4 == true) {
     digitalWrite(REG, rs);
     delay(pulseWidth);
 
@@ -37,7 +37,7 @@ void sendBus (int b7, int b6, int b5, int b4, int b3, int b2, int b1, int b0, bo
     digitalWrite(DB1, b1);
     digitalWrite(DB0, b0);
     enable();
-    
+
   }
 }
 void configureScreen()
@@ -52,6 +52,8 @@ void configureScreen()
   enable();
 
   sendBus(0, 0, 1, 0, 1, 1, 0, 0, true, 0);
+
+  ////need to add 8BIT configuration
 }
 
 void clearDisplay()
@@ -75,6 +77,13 @@ void secondLine()
   sendBus(1, 1, 0, 0, 0, 0, 0, 0, true, 0);
   cursorPosition = 1;
 }
+
+void firstLine()
+{
+  sendBus(1, 0, 0, 0, 0, 0, 0, 0, true, 0);
+  cursorPosition = 1;
+}
+
 //----------------------------------------------------------------------
 void lcdShowChar(char letter)
 {
