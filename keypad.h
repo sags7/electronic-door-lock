@@ -20,13 +20,16 @@ String lastBtn = "";
 bool btnSent = true;
 
 String btnReleased() {
-  if (lastBtn == "") {
+  if (lastBtn == "" && checkKeypad() != "") {
     lastBtn = checkKeypad();
     btnSent = false;
   }
   else if (lastBtn != checkKeypad() && btnSent == false) {
     btnSent = true;
     return lastBtn;
+  }
+  else if (lastBtn != "" && btnSent == true) {
+    lastBtn = "";
   }
   return "";
 }

@@ -3,14 +3,14 @@
 void enable()
 {
   digitalWrite(ENE, HIGH);
-  delay(pulseWidth);
+  delayMicroseconds(pulseWidth);
   digitalWrite(ENE, LOW);
 }
 
 void sendBus (int b7, int b6, int b5, int b4, int b3, int b2, int b1, int b0, bool bit4 = true, int rs = 1) {
   if (bit4 == true) {
     digitalWrite(REG, rs);
-    delay(pulseWidth);
+    delayMicroseconds(pulseWidth);
 
     digitalWrite(DB7, b7);
     digitalWrite(DB6, b6);
@@ -26,7 +26,7 @@ void sendBus (int b7, int b6, int b5, int b4, int b3, int b2, int b1, int b0, bo
   }
   else {
     digitalWrite(REG, rs);
-    delay(pulseWidth);
+    delayMicroseconds(pulseWidth);
 
     digitalWrite(DB7, b7);
     digitalWrite(DB6, b6);
@@ -43,7 +43,7 @@ void sendBus (int b7, int b6, int b5, int b4, int b3, int b2, int b1, int b0, bo
 void configureScreen()
 {
   digitalWrite(REG, LOW);
-  delay(pulseWidth);
+  delayMicroseconds(pulseWidth);
 
   digitalWrite(DB7, LOW);
   digitalWrite(DB6, LOW);
@@ -434,7 +434,7 @@ void lcdShowChar(char letter)
 
 void lcdPrint(String sentence, short lineLength = 16)
 {
-  delay(pulseWidth);
+  delayMicroseconds(pulseWidth);
   if (sentence.length() <= lineLength - cursorPosition)
   {
     for (int i = 0; i < sentence.length(); i++)
@@ -460,9 +460,8 @@ void lcdPrint(String sentence, short lineLength = 16)
 
 void bootUp () {
   digitalWrite(lcdOnPin, LOW);
-  delay(pulseWidth);
+  delayMicroseconds(pulseWidth);
   digitalWrite(lcdOnPin, HIGH);
-  delay(pulseWidth);
   configureScreen();
   enableCursor();
   clearDisplay();

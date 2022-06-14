@@ -59,7 +59,7 @@ void passwordScreen() {
       }
       lcdPrint("*");
     }
-    lastBtn = "";
+    //lastBtn = "";
   }
 }
 
@@ -84,11 +84,3 @@ void loop() {
   passwordScreen();
   servoControl(servoPosition);
 }
-
-
-/*
-     if (btnReleased() != "") {
-       lcdPrint(lastBtn);
-       lastBtn = "";
-     }
-*/
